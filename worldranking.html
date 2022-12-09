@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type = "text/javascript" src = "./javascript/worldranking_script.js"> </script
+    </head>
+    <body onLoad="loadWorldRanking()">
+        <a href="./index.html">
+            <img src="./images/home.png" width="30" />
+        </a><br>
+        <input id="searchField" type="text" placeholder="Search.." name="search" value="">
+        <button type="submit" onclick="searchPlayer()">Search</button>
+        <table id="classifica">
+            <thead>
+                <tr>
+                    <th> Rank </th>
+                    <th> Nationality </th>
+                    <th> Username </th>
+                    <th> Points </th>
+                </tr>
+            </thead>
+            <tbody id="datiClassifica"></tbody>
+        </table>
+        
+    </body>
+</html>

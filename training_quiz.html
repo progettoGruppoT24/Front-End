@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type = "text/javascript" src = "./javascript/quiz_script.js"> </script>
+    </head>
+    <body onLoad="setQuiz()">
+        <a href="./index.html">
+            <img src="./images/home.png" width="30" onclick= "updatePoints()"/>
+        </a>
+        
+        <h1>Quiz</h1>
+        
+        <label id="labelPoints" >Points: <label id="points">0</label></label> <br>
+        <label id="domanda" >Domanda: </label>
+        
+        <section style="display: none;" id="quiz1">
+            <label for="risposta">Risposta:</label>
+            <input type="text" id="rispQuiz1" name="risposta">
+            <input type="submit" id="submitQuiz1" value="INVIA RISPOSTA" onclick= "clickedSubmit()">
+        </section>
+        
+        <section style="display: none;" id="quiz23">
+            <input type="submit" id="o1" name="false" value="OPZIONE 1" onclick= "clickedO1()">
+            <input type="submit" id="o2" name="false" value="OPZIONE 2" onclick= "clickedO2()">
+            <input type="submit" id="o3" name="false" value="OPZIONE 3" onclick= "clickedO3()">
+            <input type="submit" id="o4" name="false" value="OPZIONE 4" onclick= "clickedO4()">
+        </section>
+        
+        <label id="rispostaEsatta" style="display: none;" >La risposta esatta era: </label>
+        
+    </body>
+</html>

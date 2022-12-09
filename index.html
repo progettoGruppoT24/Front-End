@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type = "text/javascript" src = "./javascript/index_script.js"></script>
+    </head>
+    <body>
+        <a href="./index.html">
+            <img src="./images/logo.png" width="100" />
+        </a>
+        <form action="./info.html">
+            <input type="submit" value="INFO" />
+        </form>
+        <form action="./signin.html">
+            <input type="submit" value="SIGN IN" />
+        </form>
+        <button type="button" id="buttonSinglePlayer" onclick= "openSinglePlayerWindow()" >SINGLE-PLAYER</button>
+        <form action="./worldranking.html">
+            <input type="submit" value="WORLD RANKING" />
+        </form>
+        
+        <dialog id="singleplayer">
+            <form method="dialog">
+                <section>
+                    <input type="checkbox" id="checkHiragana" name="alfabeti" value="Hiragana" checked>
+                    <label for="Hiragana">Hiragana</label><br>
+                    <input type="checkbox" id="checkKatakana" name="alfabeti" value="Katakana">
+                    <label for="Katakana">Katakana</label><br>
+                    <input type="checkbox" id="checkKanji" name="alfabeti" value="Kanji" disabled>
+                    <label for="Kanji">Kanji</label><br>
+                </section>
+                <menu>
+                    <button id="cancel" type="reset">Cancel</button>
+                    <button id="trainingButton" type="submit" onclick="return playTraining()">Training</button>
+                    <button type="submit">Daily challenge</button>
+                </menu>
+            </form>
+        </dialog>
+    </body>
+</html>
