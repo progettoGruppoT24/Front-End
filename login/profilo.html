@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<body onload="setProfilo()">
+
+    <h1 id="title"></h1>
+
+    <p>Dati utente:</p>
+    <label id="profiloUsername"></label>
+    <br>
+    <label id="profiloEmail"></label>
+    <br>
+    <label id="profiloPassword"></label>
+    <br>
+    <label id="profiloNazione"></label>
+    <br>
+    <label id="profiloPremium"></label>
+    <br>
+    <br>
+    <button type="submit" onclick="datiUtente()">Aggiorna dati utente</button>
+    <p id="descrizioneProfilo"></p>
+    
+    <br>
+
+    <p>Statistiche utente:</p>
+    <label id="profiloSGG"></label>
+    <br>
+    <label id="profiloSGV"></label>
+    <br>
+    <br>
+    <button type="submit" onclick="statisticheUtente()">Aggiorna statistiche utente</button>
+    <p id="descrizioneStatistiche"></p>
+
+    <br>
+
+    <p>Change email</p>
+    <input type="text" placeholder="insert new email" id="nuovaEmail">
+    <input type="submit" value="Change email" onclick="setNewEmail()">
+    <p id="descrizioneEmail"></p>
+
+    <br>
+
+    <p>Change password</p>
+    <input type="password" placeholder="insert new password" id="nuovaPassword1">
+    <input type="password" placeholder="confirm new password" id="nuovaPassword2">
+    <input type="submit" value="Change password" onclick="setNewPassword()">
+    <p id="descrizionePassword"></p>
+    <p>Nota: la password deve rispettare i seguenti requisiti:</p>
+        <ul>
+            <li>Minimo otto caratteri</li>
+            <li>Minimo due cifre numeriche</li>
+            <li>Minimo un carattere speciale (tra #, $, £, @, !, ?, -, _, :, .)</li>
+            <li>Minimo una lettera minuscola ed una maiuscola</li>
+        </ul>
+
+    <script>
+        document.getElementById("title").innerHTML = "Profilo di: " + localStorage.getItem("username");
+    </script>
+
+    <script src="../javascript/scriptUtente.js"></script>
+
+</body>
+
+</html>

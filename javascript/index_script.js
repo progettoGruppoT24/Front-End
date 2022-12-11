@@ -50,8 +50,10 @@ function playTraining(){
     window.location.href = url;
 }
 
+/*
 function playDailyChallenge(){
     const response = await fetch('http://localhost:8080/getSfidaGiornaliera');    
     dailyChallenge = await response.json();
     window.location.href = "./daily_challenge_quiz.html";
 }
+*/

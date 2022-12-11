@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <h1>Sign up</h1>
+        <label>Username:</label>
+        <input type="text" id="inputUsername">
+        <br><br>
+        <label>E-mail:</label>
+        <input type="text" id="inputEmail">
+        <br><br>
+        <label>Password:</label>
+        <input type="password" id="inputPassword">
+        <br><br>
+        <label>Confirm password:</label>
+        <input type="password" id="inputConfirmPassword">
+        <br><br>
+        <label>Nation:</label>
+        <input type="text" id="inputNation">
+        <br><br>
+        <input type="submit" value="CREATE ACCOUNT" onclick="registraUtente()">
+        <p>Nota: la password deve rispettare i seguenti requisiti:</p>
+        <ul>
+            <li>Minimo otto caratteri</li>
+            <li>Minimo due cifre numeriche</li>
+            <li>Minimo un carattere speciale (tra #, $, £, @, !, ?, -, _, :, .)</li>
+            <li>Minimo una lettera minuscola ed una maiuscola</li>
+        </ul>
+        <br><br>
+        <p id="description"></p>
+
+        <script src="../javascript/scriptUtente.js"></script>
+
+</html>
