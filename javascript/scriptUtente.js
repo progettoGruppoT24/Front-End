@@ -16,7 +16,48 @@ for(var i = 0; i < vars.length; i++){
 
 //------------------------------------FUNZIONI DI SUPPORTO-------------------------------------------------
 function checkPassword(newPassword){
+    //NON FUNZIONA, DA CONTROLLARE COME MAI
+
     //Logica del controllo password, verifica se soddisfa i requisiti oppure no
+    console.log("siamo in checkPassword");
+
+    var test=null;
+    var nCaratteri = newPassword.length;
+    var nMaiuscole = 0, nMinuscole = 0, nCifre = 0, nCaratteriSpeciali = 0;
+    
+    for(var i = 0; i < nCaratteri; i++){
+        
+        test=newPassword.charAt(i); //ritorna il carattere in posizione i
+
+        if(test >= '0' && test <= '9'){
+            //se vera il carattere è un numero
+            //console.log("Il carattere " + test + " è un numero");
+            nCifre++;
+        }
+        if(test >= 'a' && test <= 'z'){
+            //se vera il carattere è una lettera maiuscola
+            //console.log("Il carattere " + test + " è una lettera minuscola");
+            nMinuscole++;
+        }
+        if(test >= 'A' && test <= 'Z'){
+            //il carattere è una lettera minuscola
+            //console.log("Il carattere " + test + " è una lettera maiuscola");
+            nMaiuscole++;
+        }
+        if(test == '#' || test == '$' || test == '£' || test == '@' || test == '!' || test == '?' || test == '-' || test == '_' || test == ':' || test == '.'){
+            //il carattere non è ne lettera ne numero
+            //console.log("Il carattere " + test + " è un carattere speciale");
+            nCaratteriSpeciali++;
+        }
+    }
+
+    if(nCaratteri < 8)  return false;
+    if(nCifre < 2)  return false;
+    if(nCaratteriSpeciali < 1)  return false;
+    if(nMinuscole < 1 || nMaiuscole < 1)    return false;
+    if(nCaratteri != (nCifre + nMaiuscole + nMinuscole + nCaratteriSpeciali))   return false;
+        //Se inserisce caratteri che non rientrano tra le lettere, i numeri o i caratteri speciali da noi scelti
+
     return true;
 }
 
@@ -47,7 +88,7 @@ function login(){
                 localStorage.setItem("username", myJson.username);
                 localStorage.setItem("token", myJson.token);
                 //window.location = "#";
-                window.location = "../indexUtenteRegistrato.html";
+                window.location = "../index.html";
             }
             else{
                 var description = document.getElementById("description");
@@ -66,12 +107,6 @@ function login(){
     
 
   
-}
-
-function logout(){
-    localStorage.setItem("username", null);
-    localStorage.setItem("token", null);
-    window.location = "index.html";
 }
 
 function registraUtente(){
@@ -123,7 +158,7 @@ function registraUtente(){
                 if(myJson.success){
                     localStorage.setItem("username", myJson.username);
                     localStorage.setItem("token", myJson.token);
-                    window.location = "../indexUtenteRegistrato.html";
+                    window.location = "../index.html";
                 }
                 else{
                     //Non dovrebbe mai accadere
@@ -149,7 +184,7 @@ function registraUtente(){
     
 }
 
-function datiUtente(){
+function setDatiUtente(){
     var pUsername = localStorage.getItem("username");
 
     async function getDatiUtente(){
@@ -161,10 +196,11 @@ function datiUtente(){
         if(myJson.success){
             document.getElementById("profiloUsername").textContent = "Username: " + pUsername;   
             document.getElementById("profiloEmail").textContent = "Email: " + myJson.dati.email;   
-            document.getElementById("profiloPassword").textContent = "Password: " + myJson.dati.password;   
+            //document.getElementById("profiloPassword").textContent = "Password: " + myJson.dati.password;   
             document.getElementById("profiloNazione").textContent = "Nation: " + myJson.dati.nation;   
             if(myJson.dati.isPremium){
                 document.getElementById("profiloPremium").textContent = "Premium user";   
+                document.getElementById("premiumButton").setAttribute("style", "display:none");
             }
             else{
                 document.getElementById("profiloPremium").textContent = "Normal user";   
@@ -172,6 +208,7 @@ function datiUtente(){
         }
         else{
             //Non dovrebbe mai accadere, non può non esistere l'utente se la richiesta dei dati avviene dal profilo
+            document.getElementById("descrizioneProfilo").setAttribute("style", "display:inline");
             document.getElementById("descrizioneProfilo").textContent = "Errore, utente inesistente";            
         }
         window.location = "#";
@@ -181,7 +218,7 @@ function datiUtente(){
     getDatiUtente();
 }
 
-function statisticheUtente(){
+function setStatisticheUtente(){
     var pUsername = localStorage.getItem("username");
 
     async function getStatisticheUtente(){
@@ -206,8 +243,30 @@ function statisticheUtente(){
 }
 
 function setProfilo(){
-    datiUtente();
-    statisticheUtente();
+    setDatiUtente();
+    setStatisticheUtente();
+}
+
+function sendEmail(){
+
+    async function sendNewEmail(){
+    
+        const response = await fetch('http://localhost:8080/sendEmail');
+    
+        const myJson = await response.json();
+
+        if(myJson.success){
+            console.log("successo");
+        }
+        else{
+            console.log("insuccesso");
+        }
+        window.location = "#";
+        return;
+    }
+
+    //sendNewEmail();
+    
 }
 
 function setNewEmail(){
@@ -215,57 +274,68 @@ function setNewEmail(){
     var username = localStorage.getItem("username");
     var nuovaEmail = document.getElementById("nuovaEmail").value;
 
-    async function setEmail(){    
-        const response = await fetch('http://localhost:8080/setNuovaEmail/' + username + "/" + nuovaEmail, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({  })
-        });
+    if(nuovaEmail != ""){
+        async function setEmail(){    
+            const response = await fetch('http://localhost:8080/setNuovaEmail/' + username + "/" + nuovaEmail, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({  })
+            });
+        
+            const myJson = await response.json();
     
-        const myJson = await response.json();
-
-        if(myJson.success){
-            document.getElementById("descrizioneEmail").textContent = "Email cambiata, nuova email: " + nuovaEmail;  
+            if(myJson.success){
+                document.getElementById("descrizioneEmail").textContent = "Email cambiata, nuova email: " + nuovaEmail;  
+            }
+            else{
+                //Nel caso ci sia un errore nella richiesta
+                document.getElementById("descrizioneEmail").textContent = "Si è verificato un errore, riprova";  
+            }
+            window.location = "#";
+            setProfilo();
+            return;
         }
-        else{
-            //Nel caso ci sia un errore nella richiesta
-            document.getElementById("descrizioneEmail").textContent = "Si è verificato un errore, riprova";  
-        }
-        window.location = "#";
-        return;
+    
+        setEmail();
+    }
+    else{
+        document.getElementById("descrizioneEmail").textContent = "Inserisci un'email";  
     }
 
-    setEmail();
+    
+    
+
 
 }
 
 function setNewPassword(){
     var username = localStorage.getItem("username");
+    var vecchiaPassword = document.getElementById("vecchiaPassword").value;
     var nuovaPassword = document.getElementById("nuovaPassword1").value;
 
-    if(nuovaPassword == document.getElementById("nuovaPassword2").value && nuovaPassword != ""){
+    if(nuovaPassword == document.getElementById("nuovaPassword2").value && vecchiaPassword != "" && nuovaPassword != ""){
 
         if(checkPassword(nuovaPassword)){
             async function setPassword(){    
                 const response = await fetch('http://localhost:8080/setNuovaPassword/' + username + "/" + nuovaPassword, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({  })
+                    body: JSON.stringify({ vecchiaPassword: vecchiaPassword })
                 });
             
                 const myJson = await response.json();
         
                 if(myJson.success){
-                    document.getElementById("descrizionePassword").textContent = "Password cambiata, nuova password: " + nuovaPassword;  
+                    document.getElementById("descrizionePassword").textContent = "Password cambiata";//, nuova password: " + nuovaPassword;  
                 }
                 else{
                     //Nel caso ci sia un errore nella richiesta
-                    document.getElementById("descrizionePassword").textContent = "Si è verificato un errore, riprova";  
+                    document.getElementById("descrizionePassword").textContent = myJson.message;  
                 }
                 window.location = "#";
+                setProfilo();
                 return;
             }
-        
             setPassword();
         }
         else{
@@ -275,8 +345,8 @@ function setNewPassword(){
         
     }
     else{
-        if(nuovaPassword == ""){
-            document.getElementById("descrizionePassword").textContent = "Compila entrambi i campi";
+        if(vecchiaPassword == "" || nuovaPassword == ""){
+            document.getElementById("descrizionePassword").textContent = "Compila tutti i campi";
         }
         else{
             document.getElementById("descrizionePassword").textContent = "Le due password non coincidono";
@@ -286,7 +356,74 @@ function setNewPassword(){
     
 }
 
+function upgradePremium(){
 
+    var username = localStorage.getItem("username");
+
+    async function upPremium(){    
+        const response = await fetch('http://localhost:8080/upgradePremium/' + username, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ })
+        });
+    
+        const myJson = await response.json();
+
+        if(myJson.success){
+            document.getElementById("profiloPremium").textContent = "Premium user";
+            localStorage.setItem("isPremium", true);
+            document.getElementById("premiumButton").setAttribute("style", "display:none");
+            document.getElementById("descrizioneProfilo").textContent = "Upgrade avvenuto con successo";  
+        }
+        else{
+            //Nel caso ci sia un errore nella richiesta
+            document.getElementById("descrizioneProfilo").textContent = myJson.message;  
+        }
+        window.location = "#";
+        setProfilo();
+        return;
+    }
+    upPremium();
+}
+
+function recuperaCredenziali(){
+    document.getElementById("description").textContent = "Funzione non ancora implementata";
+    const emailRecupero = document.getElementById("emailRecupero").value;
+
+    async function recuperaDatiEInoltrali(){
+
+        
+
+
+        const response = await fetch('http://localhost:8080/sendEmail', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ destinatario: emailRecupero, password: password })
+        })
+    
+        const myJson = await response.json();
+
+        //console.log(myJson.message);
+        //console.log(myJson);
+
+
+        if(myJson.success){
+            localStorage.setItem("username", myJson.username);
+            localStorage.setItem("token", myJson.token);
+            //window.location = "#";
+            window.location = "../index.html";
+        }
+        else{
+            var description = document.getElementById("description");
+            description.innerHTML = "Username o password errati";
+            window.location = "#";
+        }
+        return;
+    }
+
+    recuperaDatiEInoltrali();
+
+}
 
 
 

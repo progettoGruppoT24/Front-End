@@ -7,13 +7,27 @@
         <a href="./index.html">
             <img src="./images/logo.png" width="100" />
         </a>
+
+        <h1 id="userInformation"></h1>
+
         <form action="./info.html">
             <input type="submit" value="INFO" />
         </form>
+
         <form action="./login/login.html">
-            <input type="submit" value="SIGN IN" />
+            <input type="submit" id="loginButton" value="SIGN IN" />
         </form>
+
+        <form action="./login/profilo.html">
+            <input type="submit" id="profileButton" value="PROFILO" />
+        </form>
+
+        <form action="#">
+            <button type="button" id="logoutButton" onclick="logout()">LOGOUT</button>
+        </form>
+
         <button type="button" id="buttonSinglePlayer" onclick= "openSinglePlayerWindow()" >SINGLE-PLAYER</button>
+
         <form action="./worldranking.html">
             <input type="submit" value="WORLD RANKING" />
         </form>
@@ -35,5 +49,22 @@
                 </menu>
             </form>
         </dialog>
+
+        <script>
+            var username = localStorage.getItem("username");
+            if(username == "null"){
+                document.getElementById("userInformation").innerHTML = "Utente anonimo"; 
+                document.getElementById("logoutButton").setAttribute("style", "display:none");
+                document.getElementById("profileButton").setAttribute("style", "display:none");
+            }
+            else{
+                document.getElementById("userInformation").innerHTML = "Utente: " + username;
+                document.getElementById("loginButton").setAttribute("style", "display:none");
+            }
+            
+        </script>
+
+
+
     </body>
 </html>

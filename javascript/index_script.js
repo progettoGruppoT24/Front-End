@@ -1,3 +1,10 @@
+function logout(){
+    localStorage.setItem("username", null);
+    localStorage.setItem("token", null);
+    window.location = "index.html";
+}
+
+
 function openSinglePlayerWindow(){
     const updateButton = document.getElementById("buttonSinglePlayer");
     const cancelButton = document.getElementById("cancel");
@@ -15,6 +22,7 @@ function openSinglePlayerWindow(){
         dialog.close("");
     });
 }; 
+
 function playTraining(){
     var url = "./training_quiz.html";
     var hiraganaBool = document.getElementById("checkHiragana");

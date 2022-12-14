@@ -2,6 +2,10 @@
 <html>
 <body onload="setProfilo()">
 
+    <a href="../index.html">
+        <img src="../images/home.png" width="30" />
+    </a>
+
     <h1 id="title"></h1>
 
     <p>Dati utente:</p>
@@ -9,17 +13,14 @@
     <br>
     <label id="profiloEmail"></label>
     <br>
-    <label id="profiloPassword"></label>
-    <br>
     <label id="profiloNazione"></label>
     <br>
     <label id="profiloPremium"></label>
     <br>
-    <br>
-    <button type="submit" onclick="datiUtente()">Aggiorna dati utente</button>
-    <p id="descrizioneProfilo"></p>
-    
-    <br>
+    <input type="submit" value="Upgrade premium" onclick="upgradePremium()" id="premiumButton">
+    <p id="descrizioneProfilo" style="display: none;"></p>
+
+    <p>---------------------------------------------------------------------------------</p>
 
     <p>Statistiche utente:</p>
     <label id="profiloSGG"></label>
@@ -27,19 +28,19 @@
     <label id="profiloSGV"></label>
     <br>
     <br>
-    <button type="submit" onclick="statisticheUtente()">Aggiorna statistiche utente</button>
-    <p id="descrizioneStatistiche"></p>
+    <p id="descrizioneStatistiche" style="display: none;"></p>
 
-    <br>
+    <p>---------------------------------------------------------------------------------</p>
 
     <p>Change email</p>
     <input type="text" placeholder="insert new email" id="nuovaEmail">
     <input type="submit" value="Change email" onclick="setNewEmail()">
     <p id="descrizioneEmail"></p>
 
-    <br>
+    <p>---------------------------------------------------------------------------------</p>
 
     <p>Change password</p>
+    <input type="password" placeholder="insert current password" id="vecchiaPassword">
     <input type="password" placeholder="insert new password" id="nuovaPassword1">
     <input type="password" placeholder="confirm new password" id="nuovaPassword2">
     <input type="submit" value="Change password" onclick="setNewPassword()">
