@@ -54,7 +54,7 @@ function playTraining(){
     else if(hiraganaBool.checked&&katakanaBool.checked&&!kanjiBool.checked){ //1 1 0
         url = url + "?alfabeto=[\"Hiragana\", \"Katakana\"]";
     }
-    else if(hiraganaBool.checked&&!katakanaBool.checked&&kanjiBool.checked){ // 1 1 1
+    else if(hiraganaBool.checked&&katakanaBool.checked&&kanjiBool.checked){ // 1 1 1
         url = url + "?alfabeto=[\"Hiragana\", \"Katakana\", \"Kanji\"]";
     }
     else if(hiraganaBool.checked&&!katakanaBool.checked&&kanjiBool.checked){ //1 0 1

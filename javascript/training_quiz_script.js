@@ -117,5 +117,6 @@ async function updatePoints(){
     }
   });
         const resp = await response.json();
+        window.location = "./index.html";
     }
 }
