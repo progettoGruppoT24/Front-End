@@ -3,7 +3,7 @@
     <head>
         <script type = "text/javascript" src = "./javascript/index_script.js"></script>
     </head>
-    <body>
+    <body onLoad="setPage()">
         <a href="./index.html">
             <img src="./images/logo.png" width="100" />
         </a>
@@ -22,9 +22,7 @@
             <input type="submit" id="profileButton" value="PROFILO" />
         </form>
 
-        <form action="#">
-            <button type="button" id="logoutButton" onclick="logout()">LOGOUT</button>
-        </form>
+        <button type="button" id="logoutButton" onclick="logout()">LOGOUT</button>
 
         <button type="button" id="buttonSinglePlayer" onclick= "openSinglePlayerWindow()" >SINGLE-PLAYER</button>
 
@@ -45,26 +43,9 @@
                 <menu>
                     <button id="cancel" type="reset">Cancel</button>
                     <button id="trainingButton" type="submit" onclick="playTraining()">Training</button>
-                    <button id="dailyChallenge" type="submit" onclick="playDailyChallenge()">Daily challenge</button>
+                    <button id="dailyChallenge" type="submit" onclick="playDailyChallenge()" disabled>Daily challenge</button>
                 </menu>
             </form>
         </dialog>
-
-        <script>
-            var username = localStorage.getItem("username");
-            if(username == "null"){
-                document.getElementById("userInformation").innerHTML = "Utente anonimo"; 
-                document.getElementById("logoutButton").setAttribute("style", "display:none");
-                document.getElementById("profileButton").setAttribute("style", "display:none");
-            }
-            else{
-                document.getElementById("userInformation").innerHTML = "Utente: " + username;
-                document.getElementById("loginButton").setAttribute("style", "display:none");
-            }
-            
-        </script>
-
-
-
     </body>
 </html>

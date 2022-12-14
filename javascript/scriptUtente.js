@@ -12,7 +12,6 @@ for(var i = 0; i < vars.length; i++){
 }
 */
 
-//const e = require("express");
 
 //------------------------------------FUNZIONI DI SUPPORTO-------------------------------------------------
 function checkPassword(newPassword){
@@ -61,6 +60,39 @@ function checkPassword(newPassword){
     return true;
 }
 
+function getRandomString() {
+
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < 8; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+function sendEmail(){
+
+    async function sendNewEmail(){
+    
+        const response = await fetch('http://localhost:8080/sendEmail');
+    
+        const myJson = await response.json();
+
+        if(myJson.success){
+            console.log("successo");
+        }
+        else{
+            console.log("insuccesso");
+        }
+        window.location = "#";
+        return;
+    }
+
+    sendNewEmail();
+    
+}
+
 //------------------------------------FUNZIONI CHE INVOCANO LE API-----------------------------------------
 
 function login(){
@@ -83,10 +115,10 @@ function login(){
             //console.log(myJson.message);
             //console.log(myJson);
 
-    
+
             if(myJson.success){
                 localStorage.setItem("username", myJson.username);
-                localStorage.setItem("token", myJson.token);
+                localStorage.setItem("isPremium", myJson.isPremium);
                 //window.location = "#";
                 window.location = "../index.html";
             }
@@ -184,8 +216,7 @@ function registraUtente(){
     
 }
 
-function setDatiUtente(){
-    var pUsername = localStorage.getItem("username");
+function setDatiUtente(pUsername){
 
     async function getDatiUtente(){
     
@@ -218,8 +249,7 @@ function setDatiUtente(){
     getDatiUtente();
 }
 
-function setStatisticheUtente(){
-    var pUsername = localStorage.getItem("username");
+function setStatisticheUtente(pUsername){
 
     async function getStatisticheUtente(){
     
@@ -243,35 +273,26 @@ function setStatisticheUtente(){
 }
 
 function setProfilo(){
-    setDatiUtente();
-    setStatisticheUtente();
-}
+    var pUsername = localStorage.getItem("username");
 
-function sendEmail(){
-
-    async function sendNewEmail(){
-    
-        const response = await fetch('http://localhost:8080/sendEmail');
-    
-        const myJson = await response.json();
-
-        if(myJson.success){
-            console.log("successo");
-        }
-        else{
-            console.log("insuccesso");
-        }
-        window.location = "#";
+    if(pUsername == "null"){
+        window.location="./login.html";
         return;
     }
 
-    //sendNewEmail();
-    
+    setDatiUtente(pUsername);
+    setStatisticheUtente(pUsername);
 }
 
 function setNewEmail(){
 
     var username = localStorage.getItem("username");
+
+    if(username == "null"){
+        window.location="./login.html";
+        return;
+    }
+
     var nuovaEmail = document.getElementById("nuovaEmail").value;
 
     if(nuovaEmail != ""){
@@ -310,6 +331,12 @@ function setNewEmail(){
 
 function setNewPassword(){
     var username = localStorage.getItem("username");
+
+    if(username == "null"){
+        window.location="./login.html";
+        return;
+    }
+
     var vecchiaPassword = document.getElementById("vecchiaPassword").value;
     var nuovaPassword = document.getElementById("nuovaPassword1").value;
 
@@ -360,6 +387,11 @@ function upgradePremium(){
 
     var username = localStorage.getItem("username");
 
+    if(username == "null"){
+        window.location="./login.html";
+        return;
+    }
+
     async function upPremium(){    
         const response = await fetch('http://localhost:8080/upgradePremium/' + username, {
             method: 'PATCH',
@@ -387,38 +419,68 @@ function upgradePremium(){
 }
 
 function recuperaCredenziali(){
-    document.getElementById("description").textContent = "Funzione non ancora implementata";
     const emailRecupero = document.getElementById("emailRecupero").value;
 
     async function recuperaDatiEInoltrali(){
 
+        const response1 = await fetch('http://localhost:8080/getCredenziali/' + emailRecupero);
+
+        const myJson1 = await response1.json();
+
+        console.log("Username: " + myJson1.dati.username);
+        console.log("Password: " + myJson1.dati.password);
+
+        if(myJson1.success){
+
+            const nuovaPassword = getRandomString();
+
+            console.log("La nuova password generata è: " + nuovaPassword);
+
+            async function setPassword(){    
+                const response = await fetch('http://localhost:8080/setNuovaPassword/' + myJson1.dati.username + "/" + nuovaPassword, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ vecchiaPassword: myJson1.dati.password })
+                });
+            
+                const myJson2 = await response.json();
         
+                if(myJson2.success){
+                    const response = await fetch('http://localhost:8080/sendEmail', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            destinatario: emailRecupero, 
+                            titolo: "Ecco le tue credenziali",
+                            testo: "Username: " + myJson1.dati.username + ", password: " + nuovaPassword
+                        })
+                    })
+                
+                    const myJson3 = await response.json();            
+            
+                    if(myJson3.success){
+                        document.getElementById("description").textContent = "Email inviata";
+                    }
+                    else{
+                        document.getElementById("description").textContent = "Errore nell'invio della mail";
+                    }
+                    return;
 
+                }
+                else{
+                    document.getElementById("description").textContent = myJson2.message; 
+                    return;
+                }
+                window.location = "#";
+                return;
+            }
+            setPassword();
 
-        const response = await fetch('http://localhost:8080/sendEmail', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ destinatario: emailRecupero, password: password })
-        })
-    
-        const myJson = await response.json();
-
-        //console.log(myJson.message);
-        //console.log(myJson);
-
-
-        if(myJson.success){
-            localStorage.setItem("username", myJson.username);
-            localStorage.setItem("token", myJson.token);
-            //window.location = "#";
-            window.location = "../index.html";
         }
         else{
-            var description = document.getElementById("description");
-            description.innerHTML = "Username o password errati";
-            window.location = "#";
-        }
-        return;
+            document.getElementById("description").textContent = "L'email inserita non corrisponde a nessun utente";
+            return;
+        }        
     }
 
     recuperaDatiEInoltrali();

@@ -1,4 +1,5 @@
 var quizToShow;
+var contPoints = 0;
             
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
@@ -45,7 +46,8 @@ async function checkAnswer(ans){
     rispEsatta.style.display="block";
     if(ans===quizToShow.soluzione){
         const points = document.getElementById("points");
-        points.innerHTML = parseInt(points.innerHTML) + 1;
+        contPoints++;
+        points.innerHTML = contPoints;
     }
     await sleep (3000);
     await setQuiz();
@@ -105,6 +107,15 @@ function clickedSubmit(){
     const rispQuiz1 = document.getElementById("rispQuiz1");
     checkAnswer(rispQuiz1.value);
 }
-function updatePoints(){
-
+async function updatePoints(){
+    if(localStorage.getItem('username')!='null'){
+        const response = await fetch('http://localhost:8080/aggiornaPunteggioTraining/' + localStorage.getItem('username') + '/' + contPoints, {
+    method: 'PATCH',
+    body: JSON.stringify({}), // string or object
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+        const resp = await response.json();
+    }
 }

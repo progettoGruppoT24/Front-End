@@ -1,14 +1,12 @@
-var dailyChallenge;
+var quizDailyChallenge;
+var contError = 0;
+var numDailyChallenge = 0;
             
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-async function fetchDailyChallenge(){
-    
-}
-
-async function fetchDailyChallenge(){
+async function setQuiz(){
     const secQuiz1 = document.getElementById("quiz1");
     const secQuiz23 = document.getElementById("quiz23");
     const rispEsatta = document.getElementById("rispostaEsatta");
@@ -19,42 +17,48 @@ async function fetchDailyChallenge(){
     const o3 = document.getElementById("o3");
     const o4 = document.getElementById("o4");
     
-    const queryString = window.location.search;
+    if((quizDailyChallenge.Sfida.tipoDiSfida==1&&numDailyChallenge>=5)||(quizDailyChallenge.Sfida.tipoDiSfida==2&&numDailyChallenge>=30))
+        window.location = "index.html";
     
-    const response = await fetch('http://localhost:8080/generaQuiz' + queryString);
     
-    quizToShow = await response.json();
-    console.log(quizToShow);
-    
-    domanda.innerHTML = "Domanda: " + quizToShow.domanda;
+    domanda.innerHTML = "Domanda: " + quizDailyChallenge.Sfida.listaDiQuiz[numDailyChallenge].domanda;
                     
     secQuiz1.style.display="none";
     secQuiz23.style.display="none";
     rispEsatta.style.display="none";
-    if(quizToShow.tipo===1){
+    
+    if(quizDailyChallenge.Sfida.listaDiQuiz[numDailyChallenge].tipo===1){
         secQuiz1.style.display="block";
         
     }
     else{
         secQuiz23.style.display="block";
-        o1.value = quizToShow.opzione[0];
-        o2.value = quizToShow.opzione[1];
-        o3.value = quizToShow.opzione[2];
-        o4.value = quizToShow.opzione[3];
+        o1.value = quizDailyChallenge.Sfida.listaDiQuiz[numDailyChallenge].opzione[0];
+        o2.value = quizDailyChallenge.Sfida.listaDiQuiz[numDailyChallenge].opzione[1];
+        o3.value = quizDailyChallenge.Sfida.listaDiQuiz[numDailyChallenge].opzione[2];
+        o4.value = quizDailyChallenge.Sfida.listaDiQuiz[numDailyChallenge].opzione[3];
     }
 };
 async function checkAnswer(ans){
     const rispEsatta = document.getElementById("rispostaEsatta");
-    rispEsatta.innerHTML = 'La risposta esatta era: ' + quizToShow.soluzione;
+    rispEsatta.innerHTML = 'La risposta esatta era: ' + quizDailyChallenge.Sfida.listaDiQuiz[numDailyChallenge].soluzione;
     rispEsatta.style.display="block";
-    if(ans===quizToShow.soluzione){
-        const points = document.getElementById("points");
-        points.innerHTML = parseInt(points.innerHTML) + 1;
+    await sleep (1000);
+    if(!(ans===quizDailyChallenge.Sfida.listaDiQuiz[numDailyChallenge].soluzione)){
+        ++contError;
+        if(quizDailyChallenge.Sfida.tipoDiSfida==1){
+            alert("Hai sbagliato un quiz sei fuori");
+            window.location = "index.html";
+        }
+        if(contError>=3&&quizDailyChallenge.Sfida.tipoDiSfida==2){
+            alert("Hai sbagliato 3 quiz sei fuori");
+            window.location = "index.html";
+        }
     }
     await sleep (3000);
+    numDailyChallenge++;
     await setQuiz();
     enableAllButton();
-    
 } 
 function clickedO1(){
     disableAllButton();
@@ -109,6 +113,28 @@ function clickedSubmit(){
     const rispQuiz1 = document.getElementById("rispQuiz1");
     checkAnswer(rispQuiz1.value);
 }
-function updatePoints(){
-
+function timeIsOver(){
+    alert("Hai finito il tempo ciccio");
+    window.location = "index.html";
+}
+var x = setInterval(function() {
+    const time = document.getElementById("time");
+    time.innerHTML = time.value;
+    time.value--;
+    if(time.value<-1&&quizDailyChallenge.Sfida.tipoDiSfida==2){
+        timeIsOver();
+        clearInterval(x);
+    }
+}, 1000);
+async function fetchDailyChallenge(){
+    const response = await fetch('http://localhost:8080/getSfidaGiornaliera');
+    quizDailyChallenge = await response.json();
+    await setQuiz();
+    if(quizDailyChallenge.Sfida.tipoDiSfida==2){
+        const labelTime = document.getElementById("labelTime");
+        const time = document.getElementById("time");
+        labelTime.style.display="block";
+        time.innerHTML = 120;
+        time.value = 120;
+    }
 }

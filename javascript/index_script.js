@@ -4,6 +4,24 @@ function logout(){
     window.location = "index.html";
 }
 
+function setPage(){
+    var username = localStorage.getItem("username");
+    if(username == "null"){
+        document.getElementById("userInformation").innerHTML = "Utente anonimo"; 
+        document.getElementById("logoutButton").setAttribute("style", "display:none");
+        document.getElementById("profileButton").setAttribute("style", "display:none");
+        document.getElementById("dailyChallenge").disabled = true;
+    }
+    else{
+        document.getElementById("userInformation").innerHTML = "Utente: " + username;
+        document.getElementById("loginButton").setAttribute("style", "display:none");
+        document.getElementById("dailyChallenge").disabled = false;
+        if(localStorage.getItem("isPremium"))
+            document.getElementById("checkKanji").disabled = false;
+        else
+            document.getElementById("checkKanji").disabled = true;
+    }
+}
 
 function openSinglePlayerWindow(){
     const updateButton = document.getElementById("buttonSinglePlayer");
