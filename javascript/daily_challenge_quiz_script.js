@@ -129,6 +129,7 @@ var x = setInterval(function() {
 async function fetchDailyChallenge(){
     const response = await fetch('http://localhost:8080/getSfidaGiornaliera');
     quizDailyChallenge = await response.json();
+    console.log(quizDailyChallenge);
     await setQuiz();
     if(quizDailyChallenge.Sfida.tipoDiSfida==2){
         const labelTime = document.getElementById("labelTime");

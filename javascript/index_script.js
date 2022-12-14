@@ -76,10 +76,22 @@ function playTraining(){
     window.location.href = url;
 }
 
-/*
-function playDailyChallenge(){
-    const response = await fetch('http://localhost:8080/getSfidaGiornaliera');    
-    dailyChallenge = await response.json();
-    window.location.href = "./daily_challenge_quiz.html";
+async function playDailyChallenge(){
+    var response = await fetch('http://localhost:8080/getSfidaGiornaliera');
+    var resp = await response.json();
+    response = await fetch('http://localhost:8080/setDailyChallengePlayed/' + localStorage.getItem('username'), {
+        method: 'PATCH',
+        body: JSON.stringify({}), // string or object
+        headers: {
+          'Content-Type': 'application/json'
+        }
+    });
+    resp = await response.json();
+    if(resp.message=="already_played"){
+        alert("daily challenge gia giocata");
+    }
+    else{
+        window.location.href = "./daily_challenge_quiz.html";
+    }
 }
-*/
+
