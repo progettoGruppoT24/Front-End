@@ -17,9 +17,10 @@ async function setQuiz(){
     const o3 = document.getElementById("o3");
     const o4 = document.getElementById("o4");
     
-    if((quizDailyChallenge.Sfida.tipoDiSfida==1&&numDailyChallenge>=5)||(quizDailyChallenge.Sfida.tipoDiSfida==2&&numDailyChallenge>=30))
+    if((quizDailyChallenge.Sfida.tipoDiSfida==1&&numDailyChallenge>=5)||(quizDailyChallenge.Sfida.tipoDiSfida==2&&numDailyChallenge>=30)){
+        aggiornaPunteggio("sfidaVinta");
         window.location = "index.html";
-    
+    }
     
     domanda.innerHTML = "Domanda: " + quizDailyChallenge.Sfida.listaDiQuiz[numDailyChallenge].domanda;
                     
@@ -48,10 +49,12 @@ async function checkAnswer(ans){
         ++contError;
         if(quizDailyChallenge.Sfida.tipoDiSfida==1){
             alert("Hai sbagliato un quiz sei fuori");
+            aggiornaPunteggio("sfidaPersa");
             window.location = "index.html";
         }
         if(contError>=3&&quizDailyChallenge.Sfida.tipoDiSfida==2){
             alert("Hai sbagliato 3 quiz sei fuori");
+            aggiornaPunteggio("sfidaPersa");
             window.location = "index.html";
         }
     }
@@ -115,6 +118,7 @@ function clickedSubmit(){
 }
 function timeIsOver(){
     alert("Hai finito il tempo ciccio");
+    aggiornaPunteggio("sfidaPersa");
     window.location = "index.html";
 }
 var x = setInterval(function() {
@@ -138,4 +142,14 @@ async function fetchDailyChallenge(){
         time.innerHTML = 120;
         time.value = 120;
     }
+}
+async function aggiornaPunteggio(result){
+    const response = await fetch('http://localhost:8080/aggiornaStatsSfidaGiornaliera/' + localStorage.getItem('username') + '/' + result, {
+        method: 'PATCH',
+        body: JSON.stringify({}), // string or object
+        headers: {
+          'Content-Type': 'application/json'
+        }
+  });
+    const resp = await response.json();
 }
