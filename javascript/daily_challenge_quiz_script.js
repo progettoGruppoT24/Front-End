@@ -48,13 +48,13 @@ async function checkAnswer(ans){
     if(!(ans===quizDailyChallenge.Sfida.listaDiQuiz[numDailyChallenge].soluzione)){
         ++contError;
         if(quizDailyChallenge.Sfida.tipoDiSfida==1){
-            alert("Hai sbagliato un quiz sei fuori");
             aggiornaPunteggio("sfidaPersa");
+            alert("Hai sbagliato un quiz sei fuori");
             window.location = "index.html";
         }
         if(contError>=3&&quizDailyChallenge.Sfida.tipoDiSfida==2){
-            alert("Hai sbagliato 3 quiz sei fuori");
             aggiornaPunteggio("sfidaPersa");
+            alert("Hai sbagliato 3 quiz sei fuori");
             window.location = "index.html";
         }
     }
