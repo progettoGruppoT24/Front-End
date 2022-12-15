@@ -135,7 +135,7 @@ async function fetchDailyChallenge(){
     quizDailyChallenge = await response.json();
     console.log(quizDailyChallenge);
     await setQuiz();
-    if(quizDailyChallenge.Sfida.tipoDiSfida==2){
+    if(quizDailyChallenge.Sfida.tipoDiSfida==1){
         const labelTime = document.getElementById("labelTime");
         const time = document.getElementById("time");
         labelTime.style.display="block";
