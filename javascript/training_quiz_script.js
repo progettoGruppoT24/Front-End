@@ -16,9 +16,16 @@ async function setQuiz(){
     const o3 = document.getElementById("o3");
     const o4 = document.getElementById("o4");
     
+    document.getElementById("rispQuiz1").value = "";
+    
     const queryString = window.location.search;
     
+    if(localStorage.getItem("isPremium")=="false"&&queryString.search("Kanji")!=-1)
+        window.location = "./login/login.html";
+    
     const response = await fetch('http://localhost:8080/generaQuiz' + queryString);
+    
+    
     
     quizToShow = await response.json();
     console.log(quizToShow);
@@ -42,13 +49,15 @@ async function setQuiz(){
 };
 async function checkAnswer(ans){
     const rispEsatta = document.getElementById("rispostaEsatta");
-    rispEsatta.innerHTML = 'La risposta esatta era: ' + quizToShow.soluzione;
     rispEsatta.style.display="block";
-    if(ans===quizToShow.soluzione){
+    if(ans===quizToShow.soluzione){ //se la fai giusta
+        rispEsatta.innerHTML = 'Bravo hai indovinato!! :)';
         const points = document.getElementById("points");
         contPoints++;
         points.innerHTML = contPoints;
     }
+    else
+        rispEsatta.innerHTML = 'Hai sbagliato :(, la soluzione corretta era: ' + quizToShow.soluzione;
     await sleep (3000);
     await setQuiz();
     enableAllButton();

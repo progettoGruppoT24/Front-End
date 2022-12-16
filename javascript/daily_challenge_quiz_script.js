@@ -17,6 +17,8 @@ async function setQuiz(){
     const o3 = document.getElementById("o3");
     const o4 = document.getElementById("o4");
     
+    document.getElementById("rispQuiz1").value = "";
+    
     if((quizDailyChallenge.Sfida.tipoDiSfida==1&&numDailyChallenge>=5)||(quizDailyChallenge.Sfida.tipoDiSfida==2&&numDailyChallenge>=30)){
         aggiornaPunteggio("sfidaVinta");
         window.location = "index.html";
@@ -131,6 +133,8 @@ var x = setInterval(function() {
     }
 }, 1000);
 async function fetchDailyChallenge(){
+    if(localStorage.getItem("username")=="null")
+        window.location = "./login/login.html";
     const response = await fetch('http://localhost:8080/getSfidaGiornaliera');
     quizDailyChallenge = await response.json();
     console.log(quizDailyChallenge);

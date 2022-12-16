@@ -11,15 +11,15 @@ function setPage(){
         document.getElementById("logoutButton").setAttribute("style", "display:none");
         document.getElementById("profileButton").setAttribute("style", "display:none");
         document.getElementById("dailyChallenge").disabled = true;
+        document.getElementById("checkKanji").disabled = true;
     }
     else{
         document.getElementById("userInformation").innerHTML = "Utente: " + username;
         document.getElementById("loginButton").setAttribute("style", "display:none");
         document.getElementById("dailyChallenge").disabled = false;
-        if(localStorage.getItem("isPremium"))
+        document.getElementById("checkKanji").disabled = true;
+        if(localStorage.getItem("isPremium")=="true")
             document.getElementById("checkKanji").disabled = false;
-        else
-            document.getElementById("checkKanji").disabled = true;
     }
 }
 
