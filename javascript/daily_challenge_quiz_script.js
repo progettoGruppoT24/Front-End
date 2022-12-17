@@ -136,8 +136,8 @@ async function fetchDailyChallenge(){
     if(localStorage.getItem("username")=="null")
         window.location = "./login/login.html";
     const response = await fetch('http://localhost:8080/getSfidaGiornaliera');
-    quizDailyChallenge = await response.json();
-    console.log(quizDailyChallenge);
+    quizDailyChallenge = (await response.json());
+    console.log(quizDailyChallenge.Sfida.listaDiQuiz);
     await setQuiz();
     if(quizDailyChallenge.Sfida.tipoDiSfida==1){
         const labelTime = document.getElementById("labelTime");

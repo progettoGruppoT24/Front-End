@@ -20,14 +20,14 @@ async function setQuiz(){
     
     const queryString = window.location.search;
     
-    if(localStorage.getItem("isPremium")=="false"&&queryString.search("Kanji")!=-1)
+    if((localStorage.getItem("isPremium")=="false"||localStorage.getItem("isPremium")==null)&&queryString.search("Kanji")!=-1)
         window.location = "./login/login.html";
     
     const response = await fetch('http://localhost:8080/generaQuiz' + queryString);
     
     
     
-    quizToShow = await response.json();
+    quizToShow = (await response.json()).newQuiz;
     console.log(quizToShow);
     
     domanda.innerHTML = "Domanda: " + quizToShow.domanda;
