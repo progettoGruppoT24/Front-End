@@ -24,14 +24,20 @@ async function searchPlayer(){
     else{
         const response = await fetch('http://localhost:8080/getGiocatoreClassifica/' + searchField.value);
         const tableData = await response.json();
-        var row = table.insertRow();
-        var rankObj = row.insertCell(0);
-        rankObj.innerHTML = '#'
-        var nationality = row.insertCell(1);
-        nationality.innerHTML = tableData.dati.nation;
-        var user = row.insertCell(2);
-        user.innerHTML = tableData.dati.username;
-        var points = row.insertCell(3);
-        points.innerHTML = tableData.dati.statisticheUtente.punteggioTraining;
+        if(tableData.success){
+            var row = table.insertRow();
+            var rankObj = row.insertCell(0);
+            rankObj.innerHTML = '#'
+            var nationality = row.insertCell(1);
+            nationality.innerHTML = tableData.dati.nation;
+            var user = row.insertCell(2);
+            user.innerHTML = tableData.dati.username;
+            var points = row.insertCell(3);
+            points.innerHTML = tableData.dati.statisticheUtente.punteggioTraining;
+        }
+        else{
+            alert("Username errato");
+            loadWorldRanking();
+        }
     }
 }

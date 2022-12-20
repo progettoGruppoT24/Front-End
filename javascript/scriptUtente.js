@@ -117,10 +117,17 @@ function login(){
 
 
             if(myJson.success){
-                localStorage.setItem("username", myJson.username);
-                localStorage.setItem("isPremium", myJson.isPremium);
-                //window.location = "#";
-                window.location = "../index.html";
+                if(username!==myJson.username){
+                    var description = document.getElementById("description");
+                    description.innerHTML = "Username o password errati";
+                    window.location = "#";
+                }
+                else{
+                    localStorage.setItem("username", myJson.username);
+                    localStorage.setItem("isPremium", myJson.isPremium);
+                    //window.location = "#";
+                    window.location = "../index.html";
+                }
             }
             else{
                 var description = document.getElementById("description");
@@ -426,9 +433,7 @@ function recuperaCredenziali(){
         const response1 = await fetch('http://localhost:8080/getCredenziali/' + emailRecupero);
 
         const myJson1 = await response1.json();
-
-        console.log("Username: " + myJson1.dati.username);
-        console.log("Password: " + myJson1.dati.password);
+        console.log(myJson1);
 
         if(myJson1.success){
 
