@@ -1,0 +1,11 @@
+body{							/*Impostazini relative al "contenuto della pagina"*/
+    background-image: URL("../images/login.jpg");
+    /*background-repeat: no-repeat;*/
+    background-size: 100%;
+    /*background-color: blue;*/
+}
+
+.divLogin {
+    background-color: aliceblue;
+    width: 200px;
+}

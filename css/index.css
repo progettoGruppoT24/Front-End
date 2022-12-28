@@ -1,0 +1,97 @@
+body{							/*Impostazini relative al "contenuto della pagina"*/
+    background-image: URL("../images/index.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    /*background-color: blue;*/
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+      'info header header header header signIn'
+      'main main main main main main'
+      'main main main main main main'
+      'main main main main main main'
+      'main main main main main main';
+    gap: 10px;
+    /*background-color: #2196F3;*/
+    padding: 10px;
+  }
+
+.grid-container > div {
+    /*background-color: rgba(255, 255, 255, 0.8);*/
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+  }
+  
+
+.item1 { 
+    grid-area: header; 
+    /*background-color: red;*/
+    height: 70px;
+}
+
+.item1 > img{
+    position: relative;
+    transform: scale(0.5);
+    height: 200px;
+    bottom: 65px;
+}
+
+.item1 > h1{
+    position: relative;
+    display: inline;
+    height: 200px;
+    bottom: 140px;
+}
+
+.item2 { 
+    grid-area: info; 
+    /*background-color: green;*/
+}
+
+
+.item3 { 
+    grid-area: main; 
+    /*background-color: yellow; */
+    height: 300px;
+}
+
+.item3 > button{ 
+    grid-area: main; background-color: wheat; 
+    height: 75px;
+    width: 200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    
+}
+
+.item3 .wrButton{ 
+    grid-area: main; background-color: wheat; 
+    height: 75px;
+    width: 200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    
+}
+
+.item4 { 
+    grid-area: signIn; 
+    /*background-color: blue; */
+}
+
+
+#singleplayer {
+    background-image: URL("../images/sceltaAlfabeti.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 300px;
+}
+
+#singleplayer label {
+
+    color: yellow;
+}
+

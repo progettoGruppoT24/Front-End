@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <script src="../javascript/scriptUtente.js"></script>
+    <link href="../css/recuperaCredenziali.css" rel="stylesheet" type="text/css">
+</head>
+<body>
 
     <a href="../index.html">
         <img src="../images/home.png" width="30" />
     </a>
 
-    <h1>Recupera credenziali</h1>
+    <div class="divRecuperaCredenziali">
+        <h1>Recupera credenziali</h1>
         <label>Recupera password:</label>
         <input type="text" id="emailRecupero" placeholder="Inserisci email associata">
         <br>
         <br>
         <button type="submit" onclick="recuperaCredenziali()">Recupera</button>
         <p id="description"></p>
+    </div>
 
-        <script src="../javascript/scriptUtente.js"></script>
-
+</body>
 </html>

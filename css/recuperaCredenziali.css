@@ -1,0 +1,11 @@
+body{							/*Impostazini relative al "contenuto della pagina"*/
+    background-image: URL("../images/recuperaCredenziali.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    /*background-color: blue;*/
+}
+
+.divRecuperaCredenziali {
+    background-color: greenyellow;
+    width: 200px;
+}

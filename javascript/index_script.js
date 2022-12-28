@@ -7,14 +7,14 @@ function logout(){
 function setPage(){
     var username = localStorage.getItem("username");
     if(username == "null"){
-        document.getElementById("userInformation").innerHTML = "Utente anonimo"; 
+        //document.getElementById("userInformation").innerHTML = "Utente anonimo"; 
         document.getElementById("logoutButton").setAttribute("style", "display:none");
         document.getElementById("profileButton").setAttribute("style", "display:none");
         document.getElementById("dailyChallenge").disabled = true;
         document.getElementById("checkKanji").disabled = true;
     }
     else{
-        document.getElementById("userInformation").innerHTML = "Utente: " + username;
+        //document.getElementById("userInformation").innerHTML = "Utente: " + username;
         document.getElementById("loginButton").setAttribute("style", "display:none");
         document.getElementById("dailyChallenge").disabled = false;
         document.getElementById("checkKanji").disabled = true;

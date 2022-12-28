@@ -1,0 +1,6 @@
+body{							/*Impostazini relative al "contenuto della pagina"*/
+    background-image: URL("../images/schermataClassifica.png");
+    /*background-repeat: no-repeat;*/
+    background-size: 100%;
+    /*background-color: blue;*/
+}
