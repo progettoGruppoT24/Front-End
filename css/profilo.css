@@ -6,6 +6,6 @@ body{							/*Impostazini relative al "contenuto della pagina"*/
 }
 
 .divProfilo {
-    background-color: salmon;
+    background-color: grey;
     width: 650px;
 }

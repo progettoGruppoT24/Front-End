@@ -50,17 +50,19 @@ body{							/*Impostazini relative al "contenuto della pagina"*/
 .item2 { 
     grid-area: info; 
     /*background-color: green;*/
+    height: 50px;
+    max-width: 200px;
 }
-
 
 .item3 { 
     grid-area: main; 
     /*background-color: yellow; */
-    height: 300px;
+    height: 200px;
 }
 
 .item3 > button{ 
-    grid-area: main; background-color: wheat; 
+    grid-area: main; 
+    background-color: wheat; 
     height: 75px;
     width: 200px;
     margin-top: 50px;
