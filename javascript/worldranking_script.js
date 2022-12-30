@@ -22,7 +22,7 @@ async function searchPlayer(){
     if(searchField.value==="")
         loadWorldRanking();
     else{
-        const response = await fetch('http://localhost:8080/getGiocatoreClassifica/' + searchField.value);
+        const response = await fetch('https://back-end-production-2d55.up.railway.app/getGiocatoreClassifica/' + searchField.value);
         const tableData = await response.json();
         if(tableData.success){
             var row = table.insertRow();

@@ -23,7 +23,7 @@ async function setQuiz(){
     if((localStorage.getItem("isPremium")=="false"||localStorage.getItem("isPremium")==null)&&queryString.search("Kanji")!=-1)
         window.location = "./login/login.html";
     
-    const response = await fetch('http://localhost:8080/generaQuiz' + queryString);
+    const response = await fetch('https://back-end-production-2d55.up.railway.app/generaQuiz' + queryString);
     
     
     
@@ -118,7 +118,7 @@ function clickedSubmit(){
 }
 async function updatePoints(){
     if(localStorage.getItem('username')!='null'){
-        const response = await fetch('http://localhost:8080/aggiornaPunteggioTraining/' + localStorage.getItem('username') + '/' + contPoints, {
+        const response = await fetch('https://back-end-production-2d55.up.railway.app/aggiornaPunteggioTraining/' + localStorage.getItem('username') + '/' + contPoints, {
     method: 'PATCH',
     body: JSON.stringify({}), // string or object
     headers: {

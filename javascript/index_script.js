@@ -77,9 +77,9 @@ function playTraining(){
 }
 
 async function playDailyChallenge(){
-    var response = await fetch('http://localhost:8080/getSfidaGiornaliera');
+    var response = await fetch('https://back-end-production-2d55.up.railway.app/getSfidaGiornaliera');
     var resp = await response.json();
-    response = await fetch('http://localhost:8080/setDailyChallengePlayed/' + localStorage.getItem('username'), {
+    response = await fetch('https://back-end-production-2d55.up.railway.app/setDailyChallengePlayed/' + localStorage.getItem('username'), {
         method: 'PATCH',
         body: JSON.stringify({}), // string or object
         headers: {
