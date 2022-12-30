@@ -1,3 +1,6 @@
+const dotenv = require('dotenv').config();  //per usare le variabili di ambiente
+
+
 async function loadWorldRanking(){
     const response = await fetch(process.env.SERVER + 'getClassifica');
     const tableData = await response.json();

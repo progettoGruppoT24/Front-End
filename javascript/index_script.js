@@ -1,3 +1,5 @@
+const dotenv = require('dotenv').config();  //per usare le variabili di ambiente
+
 function logout(){
     localStorage.setItem("username", null);
     localStorage.setItem("token", null);

@@ -1,3 +1,6 @@
+const dotenv = require('dotenv').config();  //per usare le variabili di ambiente
+
+
 var quizToShow;
 var contPoints = 0;
             

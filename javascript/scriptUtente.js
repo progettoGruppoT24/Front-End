@@ -1,17 +1,4 @@
-/*
-function getUrlParameter(key){
-//Funzione per leggere da una richiesta html
-var queryString = window.location.search.substring(1);
-var vars = queryString.split('&');
-for(var i = 0; i < vars.length; i++){
-    var pair = vars[i].split('=');
-    if(pair[0] == key){
-        return pair[1];
-    }
-}
-}
-*/
-
+const dotenv = require('dotenv').config();  //per usare le variabili di ambiente
 
 //------------------------------------FUNZIONI DI SUPPORTO-------------------------------------------------
 function checkPassword(newPassword){

@@ -1,6 +1,8 @@
 var quizDailyChallenge;
 var contError = 0;
 var numDailyChallenge = 0;
+const dotenv = require('dotenv').config();  //per usare le variabili di ambiente
+
             
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
