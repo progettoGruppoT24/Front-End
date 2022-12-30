@@ -1,5 +1,5 @@
 async function loadWorldRanking(){
-    const response = await fetch('http://localhost:8080/getClassifica');
+    const response = await fetch('https://back-end-production-2d55.up.railway.app/getClassifica');
     const tableData = await response.json();
     const table = document.getElementById("datiClassifica");
     console.log(tableData.Classifica);
