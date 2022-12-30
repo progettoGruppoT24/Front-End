@@ -1,6 +1,3 @@
-const dotenv = require('dotenv').config();  //per usare le variabili di ambiente
-
-
 var quizToShow;
 var contPoints = 0;
             
@@ -26,7 +23,7 @@ async function setQuiz(){
     if((localStorage.getItem("isPremium")=="false"||localStorage.getItem("isPremium")==null)&&queryString.search("Kanji")!=-1)
         window.location = "./login/login.html";
     
-    const response = await fetch(process.env.SERVER + 'generaQuiz' + queryString);
+    const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'generaQuiz' + queryString);
     
     
     
@@ -121,7 +118,7 @@ function clickedSubmit(){
 }
 async function updatePoints(){
     if(localStorage.getItem('username')!='null'){
-        const response = await fetch(process.env.SERVER + 'aggiornaPunteggioTraining/' + localStorage.getItem('username') + '/' + contPoints, {
+        const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'aggiornaPunteggioTraining/' + localStorage.getItem('username') + '/' + contPoints, {
     method: 'PATCH',
     body: JSON.stringify({}), // string or object
     headers: {

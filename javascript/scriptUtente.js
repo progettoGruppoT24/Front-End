@@ -1,5 +1,3 @@
-const dotenv = require('dotenv').config();  //per usare le variabili di ambiente
-
 //------------------------------------FUNZIONI DI SUPPORTO-------------------------------------------------
 function checkPassword(newPassword){
     //NON FUNZIONA, DA CONTROLLARE COME MAI
@@ -62,7 +60,7 @@ function sendEmail(){
 
     async function sendNewEmail(){
     
-        const response = await fetch(process.env.SERVER + 'sendEmail');
+        const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'sendEmail');
     
         const myJson = await response.json();
 
@@ -91,7 +89,7 @@ function login(){
 
         async function verificaUtenteRegistrato(){
     
-            const response = await fetch(process.env.SERVER + 'login', {
+            const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: username, password: password })
@@ -156,7 +154,7 @@ function registraUtente(){
     if(iUsername != "" && iEmail != "" && iPassword != "" && iNation != ""){
         async function registraUtente(){
     
-            const response = await fetch(process.env.SERVER + 'signUp', {
+            const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'signUp', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
@@ -173,7 +171,7 @@ function registraUtente(){
             //console.log(myJson);
     
             if(myJson.success){
-                const response = await fetch(process.env.SERVER + 'login', {
+                const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username: iUsername, password: iPassword })
@@ -214,7 +212,7 @@ function setDatiUtente(pUsername){
 
     async function getDatiUtente(){
     
-        const response = await fetch(process.env.SERVER + 'getDatiUtente/' + pUsername);
+        const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'getDatiUtente/' + pUsername);
     
         const myJson = await response.json();
 
@@ -247,7 +245,7 @@ function setStatisticheUtente(pUsername){
 
     async function getStatisticheUtente(){
     
-        const response = await fetch(process.env.SERVER + 'getStatisticheUtente/' + pUsername);
+        const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'getStatisticheUtente/' + pUsername);
     
         const myJson = await response.json();
 
@@ -291,7 +289,7 @@ function setNewEmail(){
 
     if(nuovaEmail != ""){
         async function setEmail(){    
-            const response = await fetch(process.env.SERVER + 'setNuovaEmail/' + username + "/" + nuovaEmail, {
+            const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'setNuovaEmail/' + username + "/" + nuovaEmail, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({  })
@@ -338,7 +336,7 @@ function setNewPassword(){
 
         if(checkPassword(nuovaPassword)){
             async function setPassword(){    
-                const response = await fetch(process.env.SERVER + 'setNuovaPassword/' + username + "/" + nuovaPassword, {
+                const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'setNuovaPassword/' + username + "/" + nuovaPassword, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ vecchiaPassword: vecchiaPassword })
@@ -387,7 +385,7 @@ function upgradePremium(){
     }
 
     async function upPremium(){    
-        const response = await fetch(process.env.SERVER + 'upgradePremium/' + username, {
+        const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'upgradePremium/' + username, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ })
@@ -417,7 +415,7 @@ function recuperaCredenziali(){
 
     async function recuperaDatiEInoltrali(){
 
-        const response1 = await fetch(process.env.SERVER + 'getCredenziali/' + emailRecupero);
+        const response1 = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'getCredenziali/' + emailRecupero);
 
         const myJson1 = await response1.json();
         //console.log(myJson1);
@@ -429,7 +427,7 @@ function recuperaCredenziali(){
             //console.log("La nuova password generata è: " + nuovaPassword);
 
             async function setPassword(){    
-                const response = await fetch(process.env.SERVER + 'setNuovaPassword/' + myJson1.dati.username + "/" + nuovaPassword, {
+                const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'setNuovaPassword/' + myJson1.dati.username + "/" + nuovaPassword, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ vecchiaPassword: myJson1.dati.password })
@@ -438,7 +436,7 @@ function recuperaCredenziali(){
                 const myJson2 = await response.json();
         
                 if(myJson2.success){
-                    const response = await fetch(process.env.SERVER + 'sendEmail', {
+                    const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'sendEmail', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ 

@@ -1,8 +1,5 @@
-const dotenv = require('dotenv').config();  //per usare le variabili di ambiente
-
-
 async function loadWorldRanking(){
-    const response = await fetch(process.env.SERVER + 'getClassifica');
+    const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'getClassifica');
     const tableData = await response.json();
     const table = document.getElementById("datiClassifica");
     //console.log(tableData.Classifica);
@@ -25,7 +22,7 @@ async function searchPlayer(){
     if(searchField.value==="")
         loadWorldRanking();
     else{
-        const response = await fetch(process.env.SERVER + 'getGiocatoreClassifica/' + searchField.value);
+        const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'getGiocatoreClassifica/' + searchField.value);
         const tableData = await response.json();
         if(tableData.success){
             var row = table.insertRow();

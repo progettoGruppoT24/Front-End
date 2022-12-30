@@ -1,5 +1,3 @@
-const dotenv = require('dotenv').config();  //per usare le variabili di ambiente
-
 function logout(){
     localStorage.setItem("username", null);
     localStorage.setItem("token", null);
@@ -79,9 +77,9 @@ function playTraining(){
 }
 
 async function playDailyChallenge(){
-    var response = await fetch(process.env.SERVER + 'getSfidaGiornaliera');
+    var response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'getSfidaGiornaliera');
     var resp = await response.json();
-    response = await fetch(process.env.SERVER + 'setDailyChallengePlayed/' + localStorage.getItem('username'), {
+    response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'setDailyChallengePlayed/' + localStorage.getItem('username'), {
         method: 'PATCH',
         body: JSON.stringify({}), // string or object
         headers: {

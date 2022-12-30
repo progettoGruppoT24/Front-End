@@ -1,8 +1,6 @@
 var quizDailyChallenge;
 var contError = 0;
 var numDailyChallenge = 0;
-const dotenv = require('dotenv').config();  //per usare le variabili di ambiente
-
             
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
@@ -137,7 +135,7 @@ var x = setInterval(function() {
 async function fetchDailyChallenge(){
     if(localStorage.getItem("username")=="null")
         window.location = "./login/login.html";
-    const response = await fetch(process.env.SERVER + 'getSfidaGiornaliera');
+    const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'getSfidaGiornaliera');
     quizDailyChallenge = (await response.json());
     //console.log(quizDailyChallenge.Sfida.listaDiQuiz);
     await setQuiz();
@@ -150,7 +148,7 @@ async function fetchDailyChallenge(){
     }
 }
 async function aggiornaPunteggio(result){
-    const response = await fetch(process.env.SERVER + 'aggiornaStatsSfidaGiornaliera/' + localStorage.getItem('username') + '/' + result, {
+    const response = await fetch("https://JGuesser-BackEnd-Unitn.up.railway.app/" + 'aggiornaStatsSfidaGiornaliera/' + localStorage.getItem('username') + '/' + result, {
         method: 'PATCH',
         body: JSON.stringify({}), // string or object
         headers: {
