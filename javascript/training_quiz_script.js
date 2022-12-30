@@ -28,7 +28,7 @@ async function setQuiz(){
     
     
     quizToShow = (await response.json()).newQuiz;
-    console.log(quizToShow);
+    //console.log(quizToShow);
     
     domanda.innerHTML = "Domanda: " + quizToShow.domanda;
                     

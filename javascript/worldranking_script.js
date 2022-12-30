@@ -2,7 +2,7 @@ async function loadWorldRanking(){
     const response = await fetch('https://back-end-production-2d55.up.railway.app/getClassifica');
     const tableData = await response.json();
     const table = document.getElementById("datiClassifica");
-    console.log(tableData.Classifica);
+    //console.log(tableData.Classifica);
     for(var i=0;i<100&&i<tableData.Classifica.length;i++){
         var row = table.insertRow();
         var rankObj = row.insertCell(0);

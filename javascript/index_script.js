@@ -47,7 +47,7 @@ function playTraining(){
     var katakanaBool = document.getElementById("checkKatakana");
     var kanjiBool = document.getElementById("checkKanji");
     
-    console.log(kanjiBool.checked);
+    //console.log(kanjiBool.checked);
     if(hiraganaBool.checked&&!katakanaBool.checked&&!kanjiBool.checked){ //1 0 0
         url = url + "?alfabeto=[\"Hiragana\"]";
     }

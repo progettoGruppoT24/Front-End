@@ -137,7 +137,7 @@ async function fetchDailyChallenge(){
         window.location = "./login/login.html";
     const response = await fetch('https://back-end-production-2d55.up.railway.app/getSfidaGiornaliera');
     quizDailyChallenge = (await response.json());
-    console.log(quizDailyChallenge.Sfida.listaDiQuiz);
+    //console.log(quizDailyChallenge.Sfida.listaDiQuiz);
     await setQuiz();
     if(quizDailyChallenge.Sfida.tipoDiSfida==1){
         const labelTime = document.getElementById("labelTime");

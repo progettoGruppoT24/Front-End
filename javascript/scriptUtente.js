@@ -18,7 +18,7 @@ function checkPassword(newPassword){
     //NON FUNZIONA, DA CONTROLLARE COME MAI
 
     //Logica del controllo password, verifica se soddisfa i requisiti oppure no
-    console.log("siamo in checkPassword");
+    //console.log("siamo in checkPassword");
 
     var test=null;
     var nCaratteri = newPassword.length;
@@ -80,10 +80,10 @@ function sendEmail(){
         const myJson = await response.json();
 
         if(myJson.success){
-            console.log("successo");
+            //console.log("successo");
         }
         else{
-            console.log("insuccesso");
+            //console.log("insuccesso");
         }
         window.location = "#";
         return;
@@ -433,13 +433,13 @@ function recuperaCredenziali(){
         const response1 = await fetch('https://back-end-production-2d55.up.railway.app/getCredenziali/' + emailRecupero);
 
         const myJson1 = await response1.json();
-        console.log(myJson1);
+        //console.log(myJson1);
 
         if(myJson1.success){
 
             const nuovaPassword = getRandomString();
 
-            console.log("La nuova password generata è: " + nuovaPassword);
+            //console.log("La nuova password generata è: " + nuovaPassword);
 
             async function setPassword(){    
                 const response = await fetch('https://back-end-production-2d55.up.railway.app/setNuovaPassword/' + myJson1.dati.username + "/" + nuovaPassword, {
