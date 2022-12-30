@@ -135,7 +135,7 @@ var x = setInterval(function() {
 async function fetchDailyChallenge(){
     if(localStorage.getItem("username")=="null")
         window.location = "./login/login.html";
-    const response = await fetch('https://back-end-production-2d55.up.railway.app/getSfidaGiornaliera');
+    const response = await fetch(process.env.SERVER + 'getSfidaGiornaliera');
     quizDailyChallenge = (await response.json());
     //console.log(quizDailyChallenge.Sfida.listaDiQuiz);
     await setQuiz();
@@ -148,7 +148,7 @@ async function fetchDailyChallenge(){
     }
 }
 async function aggiornaPunteggio(result){
-    const response = await fetch('https://back-end-production-2d55.up.railway.app/aggiornaStatsSfidaGiornaliera/' + localStorage.getItem('username') + '/' + result, {
+    const response = await fetch(process.env.SERVER + 'aggiornaStatsSfidaGiornaliera/' + localStorage.getItem('username') + '/' + result, {
         method: 'PATCH',
         body: JSON.stringify({}), // string or object
         headers: {

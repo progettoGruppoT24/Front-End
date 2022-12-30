@@ -1,5 +1,5 @@
 async function loadWorldRanking(){
-    const response = await fetch('https://back-end-production-2d55.up.railway.app/getClassifica');
+    const response = await fetch(process.env.SERVER + 'getClassifica');
     const tableData = await response.json();
     const table = document.getElementById("datiClassifica");
     //console.log(tableData.Classifica);
@@ -22,7 +22,7 @@ async function searchPlayer(){
     if(searchField.value==="")
         loadWorldRanking();
     else{
-        const response = await fetch('https://back-end-production-2d55.up.railway.app/getGiocatoreClassifica/' + searchField.value);
+        const response = await fetch(process.env.SERVER + 'getGiocatoreClassifica/' + searchField.value);
         const tableData = await response.json();
         if(tableData.success){
             var row = table.insertRow();
